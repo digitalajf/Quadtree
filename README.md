@@ -5,7 +5,7 @@ A static (pre-built) Quadtree for efficient proximity/collision detection. The Q
 contains: 
 - Quadtree.java
 - AABB.java
-- Main.java (windowed simulator for testing - not needed for normal use.)
+- Tester.java (windowed simulator for testing - not needed for normal use.)
 
 usage:
 - Create array of AABB objects
