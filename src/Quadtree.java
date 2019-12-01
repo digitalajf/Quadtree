@@ -1,7 +1,7 @@
 
 /**
  * This is the Quadtree class, a data structure used in spatial partitioning
- *	into sub-quadrants used for fast approximation of coordinate points within 
+ * into sub-quadrants used for fast approximation of coordinate points within 
  * its hierarchy. My version here is made from the top down as soon as it is
  * initialized through its constructor. An empty quadtree here has all AABB
  * lists initialized but empty. Recursive navigation down the hierarchy is
