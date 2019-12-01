@@ -1,4 +1,4 @@
-# Quadtree and AABBs
+# (static) Quadtree and AABBs
 
 usage:
 - Create array of AABB objects
