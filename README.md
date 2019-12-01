@@ -2,8 +2,27 @@
 
 usage:
 - Create array of AABB objects
-- Create Quadtree using constructor Quadtree(....)
+- Create Quadtree: Quadtree(AABB[] ar, int x, int y, int wdth, int hght, int tree_Dpth, boolean square);
 - Call "quadtree.update()" whenever needed
+
+example usage:
+```java
+AABB[] aabbs = new AABB[5];
+
+// make 5 AABBs and add to array with various initial values.
+for(int i=1; i<aabbs.length+1; i++){
+    aabbs[i-1] = new AABB();
+    aabbs[i-1].set_Size(i*20, i*15);
+    aabbs[i-1].set_Velocity(i*0.3f, i*0.4f);
+    aabbs[i-1].relocate(i*200, i*125);
+}
+
+// parameters for Quadtree: item list, top left (x,y) position, width, height,
+// tree depth, square = false means rectangular Quadtree
+Quadtree qt = new Quadtree(aabbs, x, y, wdth, hght, tree_Depth, square);
+
+// relocate AABBs as needed and then call qt.update();
+```
 
 The most important change in this release in comparison to the original is that the Quadtree is made from top to bottom immediately. The root quadnode is made and then all sub-quadnodes are made until the requested tree depth has been reached. As a result of this new working model, quadnodes are not initialized in real-time and instead, simple minimum and maximum querries are made against objects to find which (ready made) quadnodes they intersect and where to continue checking within the tree hierarchy. This static model eliminates the real-time creation of "Quadnode" objects and multiple calculations done to identify their (x,y) centers. Instead, the data is already available beforehand.
 
@@ -19,3 +38,4 @@ The Quadtree can now be converted to be square in real-time. The Quadtree is rec
 - a number of methods used to access or change any of the above
 
 The Simulator has been modified to fully outline the capabilities of the Quadtree in dealing with AABBs. It is now possible to add and remove AABBs, increase and decrease the tree depth and toggle between using a square or a rectangular one.
+
