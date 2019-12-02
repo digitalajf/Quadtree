@@ -5,8 +5,8 @@
  * main method is here as well.
  *
  * @author Arash J. Farmand
- * @version 3.1
- * @date 2019-12-01
+ * @version 3.12
+ * @date 2019-12-02
  * @since 2019-11-24
  */
 import java.awt.event.*;
@@ -315,7 +315,6 @@ public class Tester extends JPanel {
 		System.arraycopy(aabbs, 0, temp_AABBs, 0, aabbs.length);
 		for (int i = n; i > 0; i--) {
 			AABB new_AABB = new AABB();
-			//new_AABB.set_Color((int) (new Random().nextInt(255) * 0.3f), (int) (85 + new Random().nextInt(255) * 0.5f), (int) (85 + new Random().nextInt(255) * 0.5f), 200);
 			new_AABB.set_Size(20 + new Random().nextInt(hght / 20), 20 + new Random().nextInt(hght / 20));
 			new_AABB.set_Velocity(3 - new Random().nextFloat() * 6, 3 - new Random().nextFloat() * 6);
 			new_AABB.relocate(1 + new Random().nextInt(wdth - (int) new_AABB.x2 - (int) new_AABB.x1 - 2), 1 + new Random().nextInt(hght - (int) new_AABB.y2 - (int) new_AABB.y1 - 2));
@@ -325,7 +324,6 @@ public class Tester extends JPanel {
 
 		aabbs = temp_AABBs;
 		quadtree.all_AABBs = aabbs;
-		quadtree.set_Max_Tree_Depth(max_Tree_Depth);
 	}
 
 	/*******************************************************************************
@@ -434,7 +432,7 @@ public class Tester extends JPanel {
 	private void remove_All_AABBs() {
 		number_Of_AABBs = 0;
 		aabbs = new AABB[0];
-		quadtree.all_AABBs = aabbs;
+		quadtree = new Quadtree(aabbs, 0, 0, wdth, hght, max_Tree_Depth, square_Quadtree);
 	}
 
 	/**
@@ -512,14 +510,14 @@ public class Tester extends JPanel {
 	 * ***************************************************************************
 	 */
 	private void update_AABB_locations() {
-		for (int i = 0; i < aabbs.length; i++) {
-			if (aabbs[i].x2 + aabbs[i].dx >= wdth || aabbs[i].x1 + aabbs[i].dx <= 0) {
-				aabbs[i].dx = -aabbs[i].dx;
+		for (AABB aabb : aabbs) {
+			if (aabb.x2 + aabb.dx >= wdth || aabb.x1 + aabb.dx <= 0) {
+				aabb.dx = -aabb.dx;
 			}
-			if (aabbs[i].y2 + aabbs[i].dy >= hght || aabbs[i].y1 + aabbs[i].dy <= 0) {
-				aabbs[i].dy = -aabbs[i].dy;
+			if (aabb.y2 + aabb.dy >= hght || aabb.y1 + aabb.dy <= 0) {
+				aabb.dy = -aabb.dy;
 			}
-			aabbs[i].relocate(aabbs[i].dx, aabbs[i].dy);
+			aabb.relocate(aabb.dx, aabb.dy);
 		}
 	}
 
