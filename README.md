@@ -1,6 +1,6 @@
 # static Quadtree
 
-A static (pre-built) Quadtree for efficient proximity/collision detection. The Quadtree is completely built from the top down during initialization so that only simple minimum and maximum querries are made against objects to find which (ready made) quadnodes they intersect and where to continue checking within the tree hierarchy. This static model eliminates both the real-time creation of Quadnode objects and the calculations needed to identify their vertical/horizontal centers. 
+A data structure used for efficient location approximation of coordinates on a plain. My version here is static which means it is completely built from the top down during initialization so that only simple minimum and maximum querries are made against objects to find which (ready made) quadnodes they intersect and focus on within the sub-quadnodes. This static model eliminates both the real-time creation of Quadnode objects and the calculations needed to identify their vertical/horizontal centers. 
 
 contains: 
 - Quadtree.java
