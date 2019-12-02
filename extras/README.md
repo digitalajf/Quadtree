@@ -1,5 +1,5 @@
 # Tester.java
-A windowed application to thoroughly test the functionality of Quadtree.java, AABB.java and Tester.java will create a number of AABBs with random values and continuously move them around the screen while updating the quadtree and refreshing the screen. The simulator will allow you to:
+A windowed application to thoroughly test the functionality of Quadtree.java, AABB.java. Tester.java will create a number of AABBs with random values and continuously move them around the screen while updating the quadtree and refreshing the screen. The simulator will allow you to:
 - add/remove AABBs
 - grow/shrink AABBs
 - increase/decrease the tree depth
