@@ -1,3 +1,4 @@
+
 /**
  * A simple class to represent the bounding box which encapsulates a 2D game
  * Sprite. An AABB (Axis-Aligned Bounding Box) is a simple rectangular box
@@ -6,8 +7,8 @@
  * quad-based data structures.
  * 
  * @author Arash J. Farmand
- * @version 2.32
- * @date    2019-11-29
+ * @version 2.33
+ * @date    2019-12-02
  * @since   2019-11-24
  */
 public class AABB {
@@ -30,6 +31,7 @@ public class AABB {
 		x2 = y2 = 50;
 		dx = dy = 0;
 		wdth = hght = x2;
+		nearby = null;
 	}
 	
    // move this AABB by delta_x, delta_y
