@@ -2,14 +2,16 @@
 
 A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization. Only simple minimum and maximum querries are made against AABBs (Axis-Aligned Bounding Boxes) to find which (ready made) quadnodes they intersect and to focus on within the sub-quadnodes. This static model eliminates both the real-time creation of Quadnode objects and the calculations needed to identify their vertical/horizontal centers. 
 
-The Quadtree will look for at least 2 AABBs that share the same leaf quadnode marking each as being in close proximity to the other.
+The Quadtree will look for at least 2 AABBs that share the same leaf quadnode marking each as being in close proximity to the others.
 
-contains: 
+#### compiled with JDK 13.0.1
+
+#### contains: 
 - Quadtree.java
 - AABB.java
 - Tester.java (windowed simulator for testing - not needed for normal use.)
 
-usage:
+#### usage:
 - Create array of AABB objects
 - Create Quadtree: Quadtree(AABB[] ar, int x, int y, int wdth, int hght, int tree_Dpth, boolean square);
 - Call aabb.relocate(dx,dy) and quadtree.update() whenever needed
