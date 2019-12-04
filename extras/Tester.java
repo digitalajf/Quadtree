@@ -1,8 +1,7 @@
 
 /**
  * <p>This class is used to test the quadtree. It contains the drawing canvas and is
- * responsible for animating and rendering the scene along with the quadtree. The
- * main method is here as well.
+ * responsible for animating and rendering the scene along with the quadtree.
  *
  * @author Arash J. Farmand
  * @version 3.15
@@ -62,6 +61,7 @@ public class Tester extends JPanel {
 		// for the Quadtree, number of AABBs on screen, the game loop speed (and      //
 		// refresh rate) are also configurable here.                                  //
 		////////////////////////////////////////////////////////////////////////////////
+		
 		hght = (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.8);
 		wdth = (int) (Toolkit.getDefaultToolkit().getScreenSize().width * 0.7);
 		x = ((int) (Toolkit.getDefaultToolkit().getScreenSize().width - wdth) / 2) - 70;
