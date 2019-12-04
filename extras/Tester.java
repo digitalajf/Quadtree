@@ -1,12 +1,12 @@
 
 /**
- * This class is used to test the quadtree. It contains the drawing canvas and is
+ * <p>This class is used to test the quadtree. It contains the drawing canvas and is
  * responsible for animating and rendering the scene along with the quadtree. The
  * main method is here as well.
  *
  * @author Arash J. Farmand
- * @version 3.12
- * @date 2019-12-02
+ * @version 3.15
+ * @date 2019-12-04
  * @since 2019-11-24
  */
 import java.awt.event.*;
@@ -229,7 +229,7 @@ public class Tester extends JPanel {
 		plus_5_AABB_Button = new JButton("AABB (+5)");
 		plus_5_AABB_Button.setBackground(Color.ORANGE);
 		plus_5_AABB_Button.addActionListener((ActionEvent e) -> {
-			add_AABB(5);
+			add_AABBs(5);
 			update_Frame_Title();
 		});
 		plus_5_AABB_Button.setSize(100, 30);
@@ -240,7 +240,7 @@ public class Tester extends JPanel {
 		plus_20_AABB_Button = new JButton("AABB (+20)");
 		plus_20_AABB_Button.setBackground(Color.ORANGE);
 		plus_20_AABB_Button.addActionListener((ActionEvent e) -> {
-			add_AABB(20);
+			add_AABBs(20);
 			update_Frame_Title();
 		});
 		plus_20_AABB_Button.setSize(100, 30);
@@ -293,7 +293,7 @@ public class Tester extends JPanel {
 		menu_Bar.add(shrink_AABBs_Button);
 
 		// Initialize the Quadtree using this JPanel for size measurements
-		quadtree = new Quadtree(aabbs, 0, 0, wdth, hght, max_Tree_Depth, square_Quadtree);
+		quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth, square_Quadtree);
 
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -306,9 +306,11 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Create and add a new randomly generated AABB to the simulation.             *
+	 * <p>Create and add "n" new randomly generated AABBs to the simulation.</p>
+	 *
+	 * @param n The number of new AABBs to add to the simulation
 	 ******************************************************************************/
-	private void add_AABB(int n) {
+	private void add_AABBs(int n) {
 		number_Of_AABBs += n;
 		AABB[] temp_AABBs = new AABB[number_Of_AABBs];
 
@@ -327,7 +329,9 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Increase the width and height of all AABBs by a factor "s".                 *
+	 * <p>Increase the width and height of all AABBs by a factor "s".</p>
+	 *
+	 * @param s A scalar value for which to grow AABBs
 	 ******************************************************************************/
 	private void grow_AABBs(float s) {
 		for (AABB aabb : aabbs) {
@@ -336,8 +340,10 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Paint the quadtree and all AABBs based on the current location of the AABBs *
-	 * on the screen along with any messages that may be present.                  *
+	 * <p>Paint the quadtree and all AABBs based on the current location of the
+	 * AABBs on the screen along with any messages that may be present.</p>
+	 *
+	 * @param g The graphics object to paint to
 	 ******************************************************************************/
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -347,8 +353,10 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Paint the quadtree and all AABBs based on the current location of the       * 
-	 * AABBs on the screen.                                                        *
+	 * <p>Paint the quadtree and all AABBs based on the current location of the
+	 * AABBs on the screen.</p>
+	 *
+	 * @param g The graphics object to paint to
 	 * ****************************************************************************/
 	private void paint_AABBs(Graphics g) {
 		for (AABB aabb : aabbs) {
@@ -362,7 +370,9 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Paint any required messages in the middle of the screen.                    *
+	 * <p>Paint any required messages in the middle of the screen.</p>
+	 *
+	 * @param g The graphics object to paint to
 	 ******************************************************************************/
 	private void paint_Messages(Graphics g) {
 		if (PAUSED) {
@@ -376,13 +386,18 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Paint each Quadnode that contains at least 1 object.                        *
+	 * <p>Paint each Quadnode that contains at least 1 object.</p>
+	 *
+	 * @param g The graphics object to paint to
+	 * @param node The node to paint
 	 ******************************************************************************/
 	private void paint_Quadnode(Graphics g, Quadtree.Quadnode node) {
 		if (node != null) {
-			if (!node.aabbs.isEmpty()) {
+			if (node.aabbs.size() > 1) {
 				g.setColor(quadtree_Color);
-				g.drawRect(node.x1, node.y1, node.x2 - node.x1, node.y2 - node.y1);
+				//g.drawRect(node.x1, node.y1, node.x2 - node.x1, node.y2 - node.y1);
+				g.drawLine(node.cntr_x, node.y1, node.cntr_x, node.y2);
+				g.drawLine(node.x1, node.cntr_y, node.x2, node.cntr_y);
 			}
 
 			paint_Quadnode(g, node.nw);
@@ -393,27 +408,26 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * Paint the Quadtree by telling each node within its hierarchy to paint       *
-	 * itself to the given graphics object.                                        *
+	 * <p>Paint the Quadtree by telling each node within its hierarchy to paint
+	 * itself to the given graphics object.</p>
+	 *
+	 * @param g The graphics object to paint to
 	 ******************************************************************************/
 	private void paint_Quadtree(Graphics g) {
 		paint_Quadnode(g, quadtree.root);
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Pause the simulation. *
-	 * ***************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Pause the simulation.</p>
+	 ******************************************************************************/
 	public static void PAUSE() {
 		PAUSED = true;
 	}
 
-	/**
-	 * *****************************************************************************
-	 * This method will remove the last AABB in the "aabbs" array from the * simulation. *
-	 *****************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>This method will remove the last AABB in the "aabbs" array from the
+	 * simulation.</p>
+	 ******************************************************************************/
 	private void remove_AABB() {
 		if (number_Of_AABBs > 0) {
 			AABB[] temp_AABBs = new AABB[--number_Of_AABBs];
@@ -424,34 +438,30 @@ public class Tester extends JPanel {
 		}
 	}
 
-	/**
-	 * *****************************************************************************
-	 * This method will remove the last AABB in the aabbs array from the * simulation. *
-	 *****************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>This method will remove the last AABB in the aabbs array from the
+	 * simulation.</p>
+	 ******************************************************************************/
 	private void remove_All_AABBs() {
 		number_Of_AABBs = 0;
 		aabbs = new AABB[0];
-		quadtree = new Quadtree(aabbs, 0, 0, wdth, hght, max_Tree_Depth, square_Quadtree);
+		quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth, square_Quadtree);
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Resume the simulation. *
-	 * ***************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Resume the simulation.</p>
+	 * ****************************************************************************/
 	public static void RESUME() {
 		PAUSED = false;
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Toggle between whether this simulation should have a square or rectangular * Quadtree. A rectangular
-	 * Quadtree will fit the window component it lies in * whereas a square Quadtree will have a portion of the
-	 * bottom extending * beyond the bottom of the window component. The Quadtree is rebuilt after * this
-	 * change. *
-	 * ***************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Toggle between whether this simulation should have a square or
+	 * rectangular Quadtree. A rectangular Quadtree will fit the window component
+	 * it lies in whereas a square Quadtree will have a portion of the bottom
+	 * extending beyond the bottom of the window component. The Quadtree is
+	 * rebuilt after this change.</p>
+	 * ****************************************************************************/
 	public void toggle_Square_Quadtree() {
 		square_Quadtree = !square_Quadtree;
 		if (square_Quadtree) {
@@ -459,15 +469,13 @@ public class Tester extends JPanel {
 		} else {
 			toggle_Square_Button.setText("<html>Square<br/>Quadtree</html>");
 		}
-		quadtree = new Quadtree(aabbs, 0, 0, wdth, hght, max_Tree_Depth, square_Quadtree);
+		quadtree.reshape(wdth, hght, square_Quadtree);
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Update the information in the title of the frame based on the current * state of the Quadtree and AABBs.
-	 * *
-	 *****************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Update the information in the title of the frame based on the current
+	 * state of the Quadtree and AABBs.</p>
+	 ******************************************************************************/
 	private void update_Frame_Title() {
 		String shape = square_Quadtree ? "Square" : "Rectangular";
 		frame.setTitle("Quadtree / AABB Simulation"
@@ -477,12 +485,11 @@ public class Tester extends JPanel {
 				  + "       |");
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Continuously loop rendering the screen until exit. This method will update * the square's locations,
-	 * update the Quadtree and refresh the screen by * calling "repaint()". *
-	 *****************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Continuously loop rendering the screen until exit. This method will
+	 * update the square's locations, update the Quadtree and refresh the screen
+	 * by calling "repaint()".</p>
+	 ******************************************************************************/
 	private void update_Scene() {
 		while (true) {
 			if (!PAUSED) {
@@ -502,13 +509,12 @@ public class Tester extends JPanel {
 		}
 	}
 
-	/**
-	 * *****************************************************************************
-	 * Iterate through the AABBs array and tell them all to update their * locations. This method will move the
-	 * AABBs within the bounds defined by * wdth and hght. If the AABB is moving out of bounds, reverse dx or
-	 * dy as * needed so that the AABB travales away from the boundaries. *
-	 * ***************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>Iterate through the AABBs array and tell them all to update their
+	 * locations. This method will move the AABBs within the bounds defined by
+	 * wdth and hght. If the AABB is moving out of bounds, reverse dx or dy as
+	 * needed so that the AABB travels away from the boundaries.</p>
+	 ******************************************************************************/
 	private void update_AABB_locations() {
 		for (AABB aabb : aabbs) {
 			if (aabb.x2 + aabb.dx >= wdth || aabb.x1 + aabb.dx <= 0) {
@@ -521,11 +527,9 @@ public class Tester extends JPanel {
 		}
 	}
 
-	/**
-	 * *****************************************************************************
-	 * main method *
-	 *****************************************************************************
-	 */
+	/*******************************************************************************
+	 * <p>main method</p>
+	 ******************************************************************************/
 	public static void main(String[] args) {
 		new Tester();
 	}
