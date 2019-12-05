@@ -13,7 +13,7 @@ The Quadtree will look for at least 2 AABBs that share the same leaf quadnode ma
 
 #### usage:
 - Create array of AABB objects
-- Create Quadtree: Quadtree(AABB[] ar, int x, int y, int wdth, int hght, int tree_Dpth, boolean square);
+- Create Quadtree: Quadtree(AABB[] ar, int wdth, int hght, int tree_Dpth, boolean square);
 - Call aabb.relocate(dx,dy) and quadtree.update() whenever needed
 
 ## example usage:
@@ -28,8 +28,8 @@ for(int i=1; i<aabbs.length+1; i++){
     aabbs[i-1].relocate(i*200, i*125);
 }
 
-// parameters for Quadtree: AABB array, top left (x,y) position, width, height,
-// tree depth, square = false means rectangular Quadtree
+// parameters for Quadtree: AABB array, width, height, tree depth, square = false 
+// means rectangular Quadtree
 int wdth = 1000;
 int hght = 600;
 int tree_Depth = 5;
