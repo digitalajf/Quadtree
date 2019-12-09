@@ -1,6 +1,10 @@
 # Static Quadtree
 
-A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization. Only simple minimum and maximum querries are made against AABBs (Axis-Aligned Bounding Boxes) to find which (ready made) quadnodes they intersect and to focus on within the sub-quadnodes. This static model eliminates both the real-time creation of Quadnode objects and the calculations needed to identify their vertical/horizontal centers. 
+A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a small cost of extra memory requirements. Here are some of the characteristics:
+
+- pre-built Quadtree eliminates need to create "Quadnode" objects in real-time
+- pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
+- designed to work with AABBs only
 
 The Quadtree will look for at least 2 AABBs that share the same leaf quadnode marking each as being in close proximity to the others.
 
