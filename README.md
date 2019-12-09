@@ -8,7 +8,7 @@
 - pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
 - searches within quadrants occur only when 2 or more AABBs intersect the quadrant effectively culling needless extra searching
 - AABBs will reference each other as being "nearby" when discovered to share the same quadnode at maximum tree depth
-- Quadtree can be made square in real-time
+- Quadtree can be squared or rectangulated in real-time
 - tree depth can be increased or decreased in real-time
 
 #### contains: 
