@@ -2,7 +2,7 @@
 
 #### compiled with JDK 13.0.1
 
-<b>A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of extra memory requirements to store all quadnodes. Here are some of the characteristics:</b>
+<b>A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of extra memory requirements to store all quadnodes. Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs
 - pre-built Quadtree eliminates need to create new "Quadnode" objects in real-time
 - pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
