@@ -4,8 +4,7 @@ A data structure used for efficient approximation of coordinates on a plain. My 
 - pre-built Quadtree eliminates need to create "Quadnode" objects in real-time
 - pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
 - exclusively designed to work with AABBs
-
-The Quadtree will look for at least 2 AABBs that share the same leaf quadnode marking each as being in close proximity to the others.
+- searches within quadrants occur only when 2 or more AABBs present within quadrant
 
 #### compiled with JDK 13.0.1
 
