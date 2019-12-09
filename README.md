@@ -28,6 +28,7 @@ for(int i=1; i<aabbs.length+1; i++){
     aabbs[i-1].relocate(i*200, i*125);
 }
 
+// set up paramters for Quadtree constructor
 int wdth = 1000;
 int hght = 600;
 int tree_Depth = 5;
