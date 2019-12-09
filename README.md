@@ -1,10 +1,11 @@
 # Static Quadtree
 
-<b>A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a small cost of extra memory requirements. Here are some of the characteristics:</b>
-- pre-built Quadtree eliminates need to create "Quadnode" objects in real-time
+<b>A data structure used for efficient approximation of coordinates on a plain. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of extra memory requirements to store all quadnodes. Here are some of the characteristics:</b>
+- pre-built Quadtree eliminates need to create new "Quadnode" objects in real-time
 - pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
 - exclusively designed to work with AABBs
-- searches within quadrants occur only when 2 or more AABBs present within quadrant
+- searches within quadrants occur only when 2 or more AABBs intersect the quadrant effectively culling needless extra searching.
+- AABBs will reference each other as being "nearby" when discovered to share the same quadnode at maximum tree depth.
 
 #### compiled with JDK 13.0.1
 
