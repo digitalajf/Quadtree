@@ -34,6 +34,7 @@ int hght = 600;
 int tree_Depth = 5;
 boolean is_square = false; //"false" means rectangular Quadtree
 
+// create Quadtree using parameters
 Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth, square);
 
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
