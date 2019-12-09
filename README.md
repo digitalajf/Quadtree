@@ -12,9 +12,9 @@
 - tree depth can be increased or decreased in real-time
 
 #### contains: 
-- Quadtree.java
-- AABB.java
-- Tester.java (windowed simulator for testing - not needed for normal use.)
+1. Quadtree.java
+2. AABB.java
+3. Tester.java (windowed simulator for testing - not needed for normal use.)
 
 ## example usage:
 ```java
