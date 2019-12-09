@@ -8,8 +8,8 @@ Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs
 - pre-built Quadtree eliminates need to create new "Quadnode" objects in real-time
 - pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
-- searches within quadrants occur only when 2 or more AABBs intersect the quadrant effectively culling needless extra searching within sub-quadrants
 - AABBs will reference each other as being "nearby" when discovered to intersect the same quadnode at maximum tree depth
+- searches within quadrants occur only when 2 or more AABBs intersect the quadrant effectively culling needless extra searching within sub-quadrants
 - Quadtree can be squared or rectangulated in real-time
 - tree depth can be increased or decreased in real-time
 
