@@ -16,7 +16,7 @@ Some noteworthy characteristics:</b>
 #### contains: 
 1. Quadtree.java
 2. AABB.java
-3. Tester.java (windowed simulator for testing - not needed for normal use.)
+3. Tester.java (windowed simulator for testing - not needed for normal use)
 
 ## example usage:
 ```java
