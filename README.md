@@ -2,7 +2,7 @@
 
 #### compiled with JDK 13.0.1
 
-<b>A Quadtree is a tree data structure used for efficient approximation of coordinates on a plain. Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of extra memory required to store all quadnodes.
+<b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of extra memory required to store all quadnodes.
     
 Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs (AABB.java included)
