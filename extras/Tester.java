@@ -4,7 +4,7 @@
  * responsible for animating and rendering the scene along with the quadtree.
  *
  * @author Arash J. Farmand
- * @version 3.40
+ * @version 3.41
  * @date 2019-12-18
  * @since 2019-11-24
  */
@@ -108,6 +108,7 @@ public class Tester extends JPanel {
 		// efficiency of the quadtree.
 		frame = new JFrame(get_Graphics_Configuration());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setLocation(x, y - 60);
 		frame.setLayout(new BorderLayout());
 		frame.add(BorderLayout.WEST, this);
