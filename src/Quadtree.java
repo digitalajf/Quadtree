@@ -11,8 +11,8 @@
  * of collision detection. The quadtree is partitioned as NW,NE,SW,SE</p>
  *
  * @author Arash J. Farmand
- * @version 3.12
- * @date 2019-12-04
+ * @version 3.15
+ * @date 2019-12-11
  * @since 2019-11-24
  */
 import java.util.*;
@@ -84,44 +84,8 @@ public class Quadtree {
 		
 		reshape(wdth, hght, square);
 	}
-
-	/*******************************************************************************
-	 * <p>Recursively iterate down the Quadtree and clear all AABB lists within
-	 * the Quadnodes.</p>
-	 *
-	 * @param node The node who's AABB list is to be cleared
-	 ******************************************************************************/
-	private void reset_Quadnodes(Quadnode node) {
-		if (node != null) {
-			if (!node.aabbs.isEmpty()) {
-				node.aabbs.clear();
-			}
-			reset_Quadnodes(node.nw);
-			reset_Quadnodes(node.ne);
-			reset_Quadnodes(node.sw);
-			reset_Quadnodes(node.se);
-		}
-	}
 	
 	/*******************************************************************************
-	 * <p>Every AABB in the given aabb list will set their "nearby" AABB to
-	 * "target".</p>
-	 *
-	 * @param target The AABB which will be set as the "nearby" AABB for all items 
-	 * in aabb_List
-	 * @param  aabb_List The AABB list who's contents is to have all their 
-	 * "nearby" AABBs set to "target"
-	 ******************************************************************************/
-	private void set_Nearby(LinkedList<AABB> aabb_List, AABB target){						
-		for(AABB aabb: aabb_List)
-			aabb.set_Nearby(target);
-
-		///////////////////////////////////////////////////////////////////////
-		// At this point we can go to phase TWO of collision detection...    //
-		///////////////////////////////////////////////////////////////////////
-	}
-
-   /*******************************************************************************
     * <p>Recursively create and return the Quadnodes until the Quadtree reaches
 	 * the maximum allowed tree depth defined by "max_Tree_Depth". The Quadtree
 	 * will be completed with empty AABB lists and ready to be used for fast
@@ -146,6 +110,79 @@ public class Quadtree {
 		return (node);
 	}
 	
+	/****************************************************************************
+    * <p>Iterate through the given Quadnodes's AABB list and check to see where
+	 * the AABBs lie in the given Quadnode's four sub-quadnodes and add it to
+	 * that sub-quadnode. After having passed through the AABB list,
+	 * recursively call this method against this quadnodes's sub-quadnodes that
+	 * contain at least 2 items within its AABB list and continue this process
+	 * until either the maximum tree depth has been reached or recursive calls
+	 * do not present a situation which requires further searching. If the
+	 * maximum tree depth is reached, all AABBs within the quadnode that
+	 * reached the maximum tree depth are considered to be within close
+	 * proximity to each other.</p>
+	 *
+	 * @param node The node of interest to search for
+	 ***************************************************************************/
+	public void insert(Quadnode node) {
+		if (node.tree_Depth < max_Tree_Depth) {
+			if (node.aabbs.size() > 1) {
+				for (AABB aabb : node.aabbs) {
+					if (aabb.y1 < node.cntr_y) {
+						if (aabb.x1 < node.cntr_x) {
+							if (node.nw != null) {
+								node.nw.aabbs.add(aabb);
+							}
+						}
+						if (aabb.x2 > node.cntr_x) {
+							if (node.ne != null) {
+								node.ne.aabbs.add(aabb);
+							}
+						}
+					}
+					if (aabb.y2 > node.cntr_y) {
+						if (aabb.x1 < node.cntr_x) {
+							if (node.sw != null) {
+								node.sw.aabbs.add(aabb);
+							}
+						}
+						if (aabb.x2 > node.cntr_x) {
+							if (node.se != null) {
+								node.se.aabbs.add(aabb);
+							}
+						}
+					}
+				}
+				insert(node.nw);
+				insert(node.ne);
+				insert(node.sw);
+				insert(node.se);
+			}
+		} else {
+			node.aabbs.forEach((aabb) -> {
+				set_Nearby(node.aabbs, aabb);
+			});
+		}
+	}
+
+	/*******************************************************************************
+	 * <p>Recursively iterate down the Quadtree and clear all AABB lists within
+	 * the Quadnodes.</p>
+	 *
+	 * @param node The node who's AABB list is to be cleared
+	 ******************************************************************************/
+	private void reset_Quadnodes(Quadnode node) {
+		if (node != null) {
+			if (!node.aabbs.isEmpty()) {
+				node.aabbs.clear();
+			}
+			reset_Quadnodes(node.nw);
+			reset_Quadnodes(node.ne);
+			reset_Quadnodes(node.sw);
+			reset_Quadnodes(node.se);
+		}
+	}
+	
 	/*******************************************************************************
 	 * <p>Set this quadtree's shape to either square or rectangle.</p>
 	 *
@@ -161,7 +198,7 @@ public class Quadtree {
 	public void reshape(int wdth, int hght, boolean square){
 		if(square)
 			wdth = hght = wdth > hght ? wdth - 1 : hght - 1;
-		root = build_Quadtree(0, 0, wdth, hght, 1);
+		root = build_Quadtree(0, 0, wdth, hght, 0);
 	}
 
 	/*******************************************************************************
@@ -173,65 +210,28 @@ public class Quadtree {
 	public void set_Max_Tree_Depth(int mtd) {
 		if (max_Tree_Depth != mtd) {
 			max_Tree_Depth = (mtd < 1 || mtd > 10) ? max_Tree_Depth : mtd;
-			root = build_Quadtree(root.x1, root.y1, root.x2, root.y2, 1);
+			root = build_Quadtree(root.x1, root.y1, root.x2, root.y2, 0);
 			root.aabbs.addAll(Arrays.asList(all_AABBs));
 		}
 	}
 	
-	/****************************************************************************
-    * <p>Iterate through the given Quadnodes's AABB list and check to see where
-	 * the AABBs lie in the given Quadnode's four sub-quadnodes and add it to
-	 * that sub-quadnode. After having passed through the AABB list,
-	 * recursively call this method against this quadnodes's sub-quadnodes that
-	 * contain at least 2 items within its AABB list and continue this process
-	 * until either the maximum tree depth has been reached or recursive calls
-	 * do not present a situation which requires further searching. If the
-	 * maximum tree depth is reached, all AABBs within the quadnode that
-	 * reached the maximum tree depth are considered to be within close
-	 * proximity to each other.</p>
+	/*******************************************************************************
+	 * <p>Every AABB in the given aabb list will set their "nearby" AABB to
+	 * "target".</p>
 	 *
-	 * @param node The node of interest to search for
-	 ***************************************************************************/
-	public void subdivide(Quadnode node) {
-			if (node.tree_Depth < max_Tree_Depth) {
-				if (node.aabbs.size() > 1) {
-					for (AABB aabb : node.aabbs) {
-						if (aabb.y1 < node.cntr_y) {
-							if (aabb.x1 < node.cntr_x) {
-								if (node.nw != null) {
-									node.nw.aabbs.add(aabb);
-								}
-							}
-							if (aabb.x2 > node.cntr_x) {
-								if (node.ne != null) {
-									node.ne.aabbs.add(aabb);
-								}
-							}
-						}
-						if (aabb.y2 > node.cntr_y) {
-							if (aabb.x1 < node.cntr_x) {
-								if (node.sw != null) {
-									node.sw.aabbs.add(aabb);
-								}
-							}
-							if (aabb.x2 > node.cntr_x) {
-								if (node.se != null) {
-									node.se.aabbs.add(aabb);
-								}
-							}
-						}
-					}
-					subdivide(node.nw);
-					subdivide(node.ne);
-					subdivide(node.sw);
-					subdivide(node.se);
-				}
-			} else {
-				for (AABB aabb : node.aabbs) {
-					set_Nearby(node.aabbs, aabb);
-				}
-			}
-		}
+	 * @param target The AABB which will be set as the "nearby" AABB for all items 
+	 * in aabb_List
+	 * @param  aabb_List The AABB list who's contents is to have all their 
+	 * "nearby" AABBs set to "target"
+	 ******************************************************************************/
+	private void set_Nearby(LinkedList<AABB> aabb_List, AABB target){						
+		for(AABB aabb: aabb_List)
+			aabb.set_Nearby(target);
+
+		///////////////////////////////////////////////////////////////////////
+		// At this point we can go to phase TWO of collision detection...    //
+		///////////////////////////////////////////////////////////////////////
+	}
 
 	/*******************************************************************************
 	* <p>Update the Quadtree by emptying the leaf Quadnodes' AABB lists and then
@@ -245,6 +245,6 @@ public class Quadtree {
 		for (AABB aabb : all_AABBs) {
 			aabb.nearby = null;
 		}
-		subdivide(root);
+		insert(root);
 	}
 }
