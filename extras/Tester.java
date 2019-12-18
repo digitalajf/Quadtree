@@ -4,7 +4,7 @@
  * responsible for animating and rendering the scene along with the quadtree.
  *
  * @author Arash J. Farmand
- * @version 3.4
+ * @version 3.40
  * @date 2019-12-18
  * @since 2019-11-24
  */
