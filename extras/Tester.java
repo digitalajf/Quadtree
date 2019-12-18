@@ -4,8 +4,8 @@
  * responsible for animating and rendering the scene along with the quadtree.
  *
  * @author Arash J. Farmand
- * @version 3.15
- * @date 2019-12-04
+ * @version 3.4
+ * @date 2019-12-18
  * @since 2019-11-24
  */
 import java.awt.event.*;
@@ -19,30 +19,34 @@ public class Tester extends JPanel {
 	// window components
 	JFrame frame;
 	JPanel menu_Bar;
-	JPanel menu_Bar2;
-	JButton license_Button;
-	JButton about_Button;
-	JButton plus_TD_Button;
-	JButton minus_TD_Button;
-	JButton plus_5_AABB_Button;
-	JButton plus_20_AABB_Button;
-	JButton minus_AABB_Button;
-	JButton remove_AABBs_Button;
-	JButton toggle_Square_Button;
-	JButton grow_AABBs_Button;
-	JButton shrink_AABBs_Button;
+	JPanel side_Bar;
+	JButton license_Bttn;
+	JButton about_Bttn;
+	JButton plus_TD_Bttn;
+	JButton minus_TD_Bttn;
+	JButton plus_5_Bttn;
+	JButton plus_20_Bttn;
+	JButton plus_100_Bttn;
+	JButton minus_AABB_Bttn;
+	JButton remove_AABBs_Bttn;
+	JButton toggle_Square_Bttn;
+	JButton grow_AABBs_Bttn;
+	JButton shrink_AABBs_Bttn;
 
 	int hght;
 	int wdth;
 	int x;
 	int y;
 	int menu_Bar_Height;
-	short number_Of_AABBs;
-	short max_Tree_Depth;
+	int number_Of_AABBs;
+	int max_Tree_Depth;
 	long screen_Refresh;
 	static boolean PAUSED;
 	boolean square_Quadtree;
+	Image img_Buffer;
+	Graphics g2D;
 	Color quadtree_Color;
+	Color common_Quadnode_Color;
 	Color aabb_Color;
 	Color aabb_Nearby_Color;
 
@@ -67,11 +71,12 @@ public class Tester extends JPanel {
 		x = ((int) (Toolkit.getDefaultToolkit().getScreenSize().width - wdth) / 2) - 70;
 		y = ((int) (Toolkit.getDefaultToolkit().getScreenSize().height - hght) / 2);
 		number_Of_AABBs = 20;
-		max_Tree_Depth = 7;
+		max_Tree_Depth = 6;
 		screen_Refresh = 1000 / 60;
 		PAUSED = false;
 		square_Quadtree = false;
 		quadtree_Color = new Color(0.5f, 0.5f, 0.5f);
+		common_Quadnode_Color = new Color(0.17f, 0.17f, 0.17f);
 		aabb_Color = new Color(new Random().nextInt(50), 110 + new Random().nextInt(60), 110 + new Random().nextInt(60), 220);
 		aabb_Nearby_Color = new Color(255, 0, 0, 220);
 
@@ -92,50 +97,45 @@ public class Tester extends JPanel {
 		setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(wdth, hght));
 
-		// the menubar with a set of tools to test the quadtree
-		menu_Bar = new JPanel();
-		menu_Bar.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		menu_Bar.setLayout(null);
-		menu_Bar.setPreferredSize(new Dimension(100, 36));
-		menu_Bar2 = new JPanel();
-		menu_Bar2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		menu_Bar2.setLayout(null);
-		menu_Bar2.setPreferredSize(new Dimension(140, 100));
+		// the side bar with a set of tools to test the quadtree
+		side_Bar = new JPanel();
+		side_Bar.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+		side_Bar.setLayout(null);
+		side_Bar.setPreferredSize(new Dimension(160, 100));
 
 		// create the frame and add this JPanel to it. A number of buttons with
 		// various functionality will be created to test the capabilities and
 		// efficiency of the quadtree.
-		frame = new JFrame();
+		frame = new JFrame(get_Graphics_Configuration());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(x, y - 60);
 		frame.setLayout(new BorderLayout());
-		frame.add(BorderLayout.EAST, menu_Bar2);
 		frame.add(BorderLayout.WEST, this);
-		frame.add(BorderLayout.NORTH, menu_Bar);
+		frame.add(BorderLayout.EAST, side_Bar);
 		frame.addKeyListener(
 				  new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					PAUSED = !PAUSED;
-					about_Button.setEnabled(!PAUSED);
-					plus_TD_Button.setEnabled(!PAUSED);
-					minus_TD_Button.setEnabled(!PAUSED);
-					plus_5_AABB_Button.setEnabled(!PAUSED);
-					plus_20_AABB_Button.setEnabled(!PAUSED);
-					minus_AABB_Button.setEnabled(!PAUSED);
-					remove_AABBs_Button.setEnabled(!PAUSED);
-					toggle_Square_Button.setEnabled(!PAUSED);
-					grow_AABBs_Button.setEnabled(!PAUSED);
-					shrink_AABBs_Button.setEnabled(!PAUSED);
+					plus_TD_Bttn.setEnabled(!PAUSED);
+					minus_TD_Bttn.setEnabled(!PAUSED);
+					plus_5_Bttn.setEnabled(!PAUSED);
+					plus_20_Bttn.setEnabled(!PAUSED);
+					plus_100_Bttn.setEnabled(!PAUSED);
+					minus_AABB_Bttn.setEnabled(!PAUSED);
+					remove_AABBs_Bttn.setEnabled(!PAUSED);
+					toggle_Square_Bttn.setEnabled(!PAUSED);
+					grow_AABBs_Bttn.setEnabled(!PAUSED);
+					shrink_AABBs_Bttn.setEnabled(!PAUSED);
 				}
 			}
 		}
 		);
 		frame.pack();
 
-		license_Button = new JButton("License");
-		license_Button.setBackground(Color.WHITE);
-		license_Button.addActionListener((ActionEvent e) -> {
+		license_Bttn = new JButton("License");
+		license_Bttn.setBackground(Color.WHITE);
+		license_Bttn.addActionListener((ActionEvent e) -> {
 			String about_String = "The MIT License (MIT)"
 					  + "\n\nCopyright 2019 Arash J. Farmand"
 					  + "\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of"
@@ -155,14 +155,14 @@ public class Tester extends JPanel {
 			JOptionPane.showMessageDialog(null, about_String, "Quadtree and AABB Simulation",
 					  JOptionPane.INFORMATION_MESSAGE);
 		});
-		license_Button.setSize(124, 40);
-		license_Button.setLocation(8, 8);
-		license_Button.setFocusable(false);
-		menu_Bar2.add(license_Button);
+		license_Bttn.setSize(144, 40);
+		license_Bttn.setLocation(8, 8);
+		license_Bttn.setFocusable(false);
+		side_Bar.add(license_Bttn);
 
-		about_Button = new JButton("About");
-		about_Button.setBackground(Color.WHITE);
-		about_Button.addActionListener((ActionEvent e) -> {
+		about_Bttn = new JButton("About");
+		about_Bttn.setBackground(Color.WHITE);
+		about_Bttn.addActionListener((ActionEvent e) -> {
 			String about_String = "By Arash J. Farmand 2019"
 					  + "\n\nsource files:\nAABB.java   -   Quadtree.java   -   Main.java"
 					  + "\n\nThis simulator will test all functionality of both Quadtree.java and AABB.java. You may"
@@ -182,115 +182,141 @@ public class Tester extends JPanel {
 			JOptionPane.showMessageDialog(null, about_String, "Quadtree and AABB Simulation",
 					  JOptionPane.INFORMATION_MESSAGE);
 		});
-		about_Button.setSize(124, 40);
-		about_Button.setLocation(8, license_Button.getY() + license_Button.getHeight()+ 4);
-		about_Button.setFocusable(false);
-		menu_Bar2.add(about_Button);
+		about_Bttn.setSize(144, 40);
+		about_Bttn.setLocation(8, license_Bttn.getY() + license_Bttn.getHeight()+ 4);
+		about_Bttn.setFocusable(false);
+		side_Bar.add(about_Bttn);	
+		
+		JSeparator sep1 = new JSeparator();
+		sep1.setSize(160, 5);
+		sep1.setLocation(0, about_Bttn.getY()+about_Bttn.getHeight()+14);
+		side_Bar.add(sep1);
 
-		toggle_Square_Button = new JButton("<html>Square<br/>Quadtree</html>");
-		toggle_Square_Button.setBackground(Color.LIGHT_GRAY);
-		toggle_Square_Button.addActionListener((ActionEvent e) -> {
+		toggle_Square_Bttn = new JButton("<html>Square<br/>Quadtree</html>");
+		toggle_Square_Bttn.setBackground(Color.LIGHT_GRAY);
+		toggle_Square_Bttn.addActionListener((ActionEvent e) -> {
 			toggle_Square_Quadtree();
 			update_Frame_Title();
 		});
-		toggle_Square_Button.setSize(124, 80);
-		toggle_Square_Button.setLocation(about_Button.getX(), about_Button.getY() + about_Button.getHeight() + 16);
-		toggle_Square_Button.setFocusable(false);
-		menu_Bar2.add(toggle_Square_Button);
+		toggle_Square_Bttn.setSize(144, 80);
+		toggle_Square_Bttn.setLocation(about_Bttn.getX(), about_Bttn.getY() + about_Bttn.getHeight() + 30);
+		toggle_Square_Bttn.setFocusable(false);
+		side_Bar.add(toggle_Square_Bttn);
 
-		plus_TD_Button = new JButton("tree depth (+1)");
-		plus_TD_Button.setBackground(Color.PINK);
-		plus_TD_Button.addActionListener((ActionEvent e) -> {
+		plus_TD_Bttn = new JButton("<html><center>Tree Depth<br/>+1</center></html>");
+		plus_TD_Bttn.setBackground(Color.PINK);
+		plus_TD_Bttn.addActionListener((ActionEvent e) -> {
 			if (max_Tree_Depth < 10) {
 				max_Tree_Depth++;
 				quadtree.set_Max_Tree_Depth(max_Tree_Depth);
 				update_Frame_Title();
 			}
 		});
-		plus_TD_Button.setSize(120, 30);
-		plus_TD_Button.setLocation(2, 2);
-		plus_TD_Button.setFocusable(false);
-		menu_Bar.add(plus_TD_Button);
+		plus_TD_Bttn.setSize(70, 60);
+		plus_TD_Bttn.setLocation(8, toggle_Square_Bttn.getY()+toggle_Square_Bttn.getHeight()+4);
+		plus_TD_Bttn.setFocusable(false);
+		side_Bar.add(plus_TD_Bttn);
 
-		minus_TD_Button = new JButton("tree depth (-1)");
-		minus_TD_Button.setBackground(Color.PINK);
-		minus_TD_Button.addActionListener((ActionEvent e) -> {
+		minus_TD_Bttn = new JButton("<html><center>Tree Depth<br/>-1</center></html>");
+		minus_TD_Bttn.setBackground(Color.PINK);
+		minus_TD_Bttn.addActionListener((ActionEvent e) -> {
 			if (max_Tree_Depth > 1) {
 				max_Tree_Depth--;
 				quadtree.set_Max_Tree_Depth(max_Tree_Depth);
 				update_Frame_Title();
 			}
 		});
-		minus_TD_Button.setSize(120, 30);
-		minus_TD_Button.setLocation(plus_TD_Button.getX() + plus_TD_Button.getWidth() + 2, 2);
-		minus_TD_Button.setFocusable(false);
-		menu_Bar.add(minus_TD_Button);
+		minus_TD_Bttn.setSize(70, 60);
+		minus_TD_Bttn.setLocation(plus_TD_Bttn.getX()+plus_TD_Bttn.getWidth()+4, plus_TD_Bttn.getY());
+		minus_TD_Bttn.setFocusable(false);
+		side_Bar.add(minus_TD_Bttn);
+		
+		JSeparator sep2 = new JSeparator();
+		sep2.setSize(160, 5);
+		sep2.setLocation(0, minus_TD_Bttn.getY()+minus_TD_Bttn.getHeight()+14);
+		side_Bar.add(sep2);
 
-		plus_5_AABB_Button = new JButton("AABB (+5)");
-		plus_5_AABB_Button.setBackground(Color.ORANGE);
-		plus_5_AABB_Button.addActionListener((ActionEvent e) -> {
+		plus_5_Bttn = new JButton("AABB (+5)");
+		plus_5_Bttn.setBackground(Color.ORANGE);
+		plus_5_Bttn.addActionListener((ActionEvent e) -> {
 			add_AABBs(5);
 			update_Frame_Title();
 		});
-		plus_5_AABB_Button.setSize(100, 30);
-		plus_5_AABB_Button.setLocation(minus_TD_Button.getX() + minus_TD_Button.getWidth() + 2, 2);
-		plus_5_AABB_Button.setFocusable(false);
-		menu_Bar.add(plus_5_AABB_Button);
+		plus_5_Bttn.setSize(144, 30);
+		plus_5_Bttn.setLocation(8, minus_TD_Bttn.getY()+minus_TD_Bttn.getHeight()+30);
+		plus_5_Bttn.setFocusable(false);
+		side_Bar.add(plus_5_Bttn);
 
-		plus_20_AABB_Button = new JButton("AABB (+20)");
-		plus_20_AABB_Button.setBackground(Color.ORANGE);
-		plus_20_AABB_Button.addActionListener((ActionEvent e) -> {
+		plus_20_Bttn = new JButton("AABB (+20)");
+		plus_20_Bttn.setBackground(Color.ORANGE);
+		plus_20_Bttn.addActionListener((ActionEvent e) -> {
 			add_AABBs(20);
 			update_Frame_Title();
 		});
-		plus_20_AABB_Button.setSize(100, 30);
-		plus_20_AABB_Button.setLocation(plus_5_AABB_Button.getX() + plus_5_AABB_Button.getWidth() + 2, 2);
-		plus_20_AABB_Button.setFocusable(false);
-		menu_Bar.add(plus_20_AABB_Button);
+		plus_20_Bttn.setSize(144, 30);
+		plus_20_Bttn.setLocation(8, plus_5_Bttn.getY()+plus_5_Bttn.getHeight()+4);
+		plus_20_Bttn.setFocusable(false);
+		side_Bar.add(plus_20_Bttn);
+		
+		plus_100_Bttn = new JButton("AABB (+100)");
+		plus_100_Bttn.setBackground(Color.ORANGE);
+		plus_100_Bttn.addActionListener((ActionEvent e) -> {
+			add_AABBs(100);
+			update_Frame_Title();
+		});
+		plus_100_Bttn.setSize(144, 30);
+		plus_100_Bttn.setLocation(8, plus_20_Bttn.getY()+plus_20_Bttn.getHeight()+4);
+		plus_100_Bttn.setFocusable(false);
+		side_Bar.add(plus_100_Bttn);
 
-		minus_AABB_Button = new JButton("AABB (-1)");
-		minus_AABB_Button.setBackground(Color.ORANGE);
-		minus_AABB_Button.addActionListener((ActionEvent e) -> {
+		minus_AABB_Bttn = new JButton("AABB (-1)");
+		minus_AABB_Bttn.setBackground(Color.ORANGE);
+		minus_AABB_Bttn.addActionListener((ActionEvent e) -> {
 			remove_AABB();
 			update_Frame_Title();
 		});
-		minus_AABB_Button.setSize(100, 30);
-		minus_AABB_Button.setLocation(plus_20_AABB_Button.getX() + plus_20_AABB_Button.getWidth() + 2, 2);
-		minus_AABB_Button.setFocusable(false);
-		menu_Bar.add(minus_AABB_Button);
+		minus_AABB_Bttn.setSize(144, 30);
+		minus_AABB_Bttn.setLocation(8, plus_100_Bttn.getY()+plus_100_Bttn.getHeight()+4);
+		minus_AABB_Bttn.setFocusable(false);
+		side_Bar.add(minus_AABB_Bttn);
 
-		remove_AABBs_Button = new JButton("no AABBs");
-		remove_AABBs_Button.setBackground(Color.ORANGE);
-		remove_AABBs_Button.addActionListener((ActionEvent e) -> {
+		remove_AABBs_Bttn = new JButton("Remove AABBs");
+		remove_AABBs_Bttn.setBackground(Color.ORANGE);
+		remove_AABBs_Bttn.addActionListener((ActionEvent e) -> {
 			remove_All_AABBs();
 			update_Frame_Title();
 		});
-		remove_AABBs_Button.setSize(100, 30);
-		remove_AABBs_Button.setLocation(minus_AABB_Button.getX() + minus_AABB_Button.getWidth() + 2, 2);
-		remove_AABBs_Button.setFocusable(false);
-		menu_Bar.add(remove_AABBs_Button);
+		remove_AABBs_Bttn.setSize(144, 30);
+		remove_AABBs_Bttn.setLocation(8, minus_AABB_Bttn.getY()+minus_AABB_Bttn.getHeight()+4);
+		remove_AABBs_Bttn.setFocusable(false);
+		side_Bar.add(remove_AABBs_Bttn);
+		
+		JSeparator sep3 = new JSeparator();
+		sep3.setSize(160, 5);
+		sep3.setLocation(0, remove_AABBs_Bttn.getY()+remove_AABBs_Bttn.getHeight()+14);
+		side_Bar.add(sep3);
 
-		grow_AABBs_Button = new JButton("grow AABBs");
-		grow_AABBs_Button.setBackground(new Color(140, 190, 190));
-		grow_AABBs_Button.addActionListener((ActionEvent e) -> {
+		grow_AABBs_Bttn = new JButton("<html><center>Grow<br/>AABBs</center></html>");
+		grow_AABBs_Bttn.setBackground(new Color(140, 190, 190));
+		grow_AABBs_Bttn.addActionListener((ActionEvent e) -> {
 			grow_AABBs(1.2f);
 			update_Frame_Title();
 		});
-		grow_AABBs_Button.setSize(120, 30);
-		grow_AABBs_Button.setLocation(remove_AABBs_Button.getX() + remove_AABBs_Button.getWidth() + 2, 2);
-		grow_AABBs_Button.setFocusable(false);
-		menu_Bar.add(grow_AABBs_Button);
+		grow_AABBs_Bttn.setSize(70, 60);
+		grow_AABBs_Bttn.setLocation(8, remove_AABBs_Bttn.getY()+remove_AABBs_Bttn.getHeight()+30);
+		grow_AABBs_Bttn.setFocusable(false);
+		side_Bar.add(grow_AABBs_Bttn);
 
-		shrink_AABBs_Button = new JButton("shrink AABBs");
-		shrink_AABBs_Button.setBackground(new Color(140, 190, 190));
-		shrink_AABBs_Button.addActionListener((ActionEvent e) -> {
+		shrink_AABBs_Bttn = new JButton("<html><center>Shrink<br/>AABBs</center></html>");
+		shrink_AABBs_Bttn.setBackground(new Color(140, 190, 190));
+		shrink_AABBs_Bttn.addActionListener((ActionEvent e) -> {
 			grow_AABBs(0.8f);
 			update_Frame_Title();
 		});
-		shrink_AABBs_Button.setSize(120, 30);
-		shrink_AABBs_Button.setLocation(grow_AABBs_Button.getX() + grow_AABBs_Button.getWidth() + 2, 2);
-		shrink_AABBs_Button.setFocusable(false);
-		menu_Bar.add(shrink_AABBs_Button);
+		shrink_AABBs_Bttn.setSize(70, 60);
+		shrink_AABBs_Bttn.setLocation(grow_AABBs_Bttn.getX() + grow_AABBs_Bttn.getWidth() + 4, grow_AABBs_Bttn.getY());
+		shrink_AABBs_Bttn.setFocusable(false);
+		side_Bar.add(shrink_AABBs_Bttn);
 
 		// Initialize the Quadtree using this JPanel for size measurements
 		quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth, square_Quadtree);
@@ -300,6 +326,11 @@ public class Tester extends JPanel {
 		} catch (Exception e) {
 		}
 
+		//System.setProperty("sun.java2d.transaccel", "True");
+		//System.setProperty("sun.java2d.trace", "timestamp,log,count");
+		//System.setProperty("sun.java2d.opengl", "True");
+		//System.setProperty("sun.java2d.d3d", "True");
+		//System.setProperty("sun.java2d.ddforcevram", "True");
 		update_Frame_Title();
 		frame.setVisible(true);
 		update_Scene();
@@ -327,6 +358,28 @@ public class Tester extends JPanel {
 		aabbs = temp_AABBs;
 		quadtree.all_AABBs = aabbs;
 	}
+	
+	/*******************************************************************************
+	 * <p>Return this monitor's graphics configuration to be used with the 
+	 * frame.</p>
+	 ******************************************************************************/
+	private GraphicsConfiguration get_Graphics_Configuration(){
+		Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+       if (focusOwner != null) {
+           Window w = SwingUtilities.getWindowAncestor(focusOwner);
+           if (w != null) {
+               return w.getGraphicsConfiguration();
+           } else {
+               for(Frame f : Frame.getFrames()) {
+                   if("NbMainWindow".equals(f.getName())) {
+                       return f.getGraphicsConfiguration();
+                   }
+               }
+           }
+       }
+
+       return(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());
+	}
 
 	/*******************************************************************************
 	 * <p>Increase the width and height of all AABBs by a factor "s".</p>
@@ -346,10 +399,19 @@ public class Tester extends JPanel {
 	 * @param g The graphics object to paint to
 	 ******************************************************************************/
 	public void paint(Graphics g) {
-		super.paint(g);
-		paint_Quadtree(g);
-		paint_AABBs(g);
-		paint_Messages(g);
+		if (img_Buffer == null)
+			img_Buffer = createImage(wdth, hght);
+		else{
+			g2D = img_Buffer.getGraphics();
+			super.paint(g2D);
+			paint_Quadtree(g2D);
+			paint_AABBs(g2D);
+			paint_Messages(g2D);
+			//g2D.dispose();
+			
+			// copy image buffer to screen
+			g.drawImage(img_Buffer, 0, 0, null);
+		}
 	}
 
 	/*******************************************************************************
@@ -392,12 +454,14 @@ public class Tester extends JPanel {
 	 * @param node The node to paint
 	 ******************************************************************************/
 	private void paint_Quadnode(Graphics g, Quadtree.Quadnode node) {
-		if (node != null) {
+		if (node.tree_Depth<max_Tree_Depth) {
 			if (node.aabbs.size() > 1) {
+				if(node.tree_Depth == max_Tree_Depth-1){
+					g.setColor(common_Quadnode_Color);
+					g.fillRect(node.x1, node.y1, node.x2 - node.x1, node.y2 - node.y1);
+				}
 				g.setColor(quadtree_Color);
-				//g.drawRect(node.x1, node.y1, node.x2 - node.x1, node.y2 - node.y1);
-				g.drawLine(node.cntr_x, node.y1, node.cntr_x, node.y2);
-				g.drawLine(node.x1, node.cntr_y, node.x2, node.cntr_y);
+				g.drawRect(node.x1, node.y1, node.x2 - node.x1, node.y2 - node.y1);
 			}
 
 			paint_Quadnode(g, node.nw);
@@ -415,13 +479,6 @@ public class Tester extends JPanel {
 	 ******************************************************************************/
 	private void paint_Quadtree(Graphics g) {
 		paint_Quadnode(g, quadtree.root);
-	}
-
-	/*******************************************************************************
-	 * <p>Pause the simulation.</p>
-	 ******************************************************************************/
-	public static void PAUSE() {
-		PAUSED = true;
 	}
 
 	/*******************************************************************************
@@ -449,13 +506,6 @@ public class Tester extends JPanel {
 	}
 
 	/*******************************************************************************
-	 * <p>Resume the simulation.</p>
-	 * ****************************************************************************/
-	public static void RESUME() {
-		PAUSED = false;
-	}
-
-	/*******************************************************************************
 	 * <p>Toggle between whether this simulation should have a square or
 	 * rectangular Quadtree. A rectangular Quadtree will fit the window component
 	 * it lies in whereas a square Quadtree will have a portion of the bottom
@@ -465,9 +515,9 @@ public class Tester extends JPanel {
 	public void toggle_Square_Quadtree() {
 		square_Quadtree = !square_Quadtree;
 		if (square_Quadtree) {
-			toggle_Square_Button.setText("<html>Rectangulate<br/>Quadtree</html>");
+			toggle_Square_Bttn.setText("<html>Rectangulate<br/>Quadtree</html>");
 		} else {
-			toggle_Square_Button.setText("<html>Square<br/>Quadtree</html>");
+			toggle_Square_Bttn.setText("<html>Square<br/>Quadtree</html>");
 		}
 		quadtree.reshape(wdth, hght, square_Quadtree);
 	}
@@ -488,11 +538,12 @@ public class Tester extends JPanel {
 	/*******************************************************************************
 	 * <p>Continuously loop rendering the screen until exit. This method will
 	 * update the square's locations, update the Quadtree and refresh the screen
-	 * by calling "repaint()".</p>
+	 * by calling "repaint()". All of this is done roughly 60 times per 
+	 * second.</p>
 	 ******************************************************************************/
 	private void update_Scene() {
 		while (true) {
-			if (!PAUSED) {
+			if(!PAUSED){
 				long time_Start = System.currentTimeMillis();
 				update_AABB_locations();
 				quadtree.update();
@@ -502,8 +553,7 @@ public class Tester extends JPanel {
 					if (time_Elapsed < screen_Refresh) {
 						Thread.sleep(screen_Refresh - time_Elapsed);
 					}
-				} catch (InterruptedException e) {
-				}
+				} catch (InterruptedException e) {}
 			}
 			repaint();
 		}
