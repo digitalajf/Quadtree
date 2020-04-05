@@ -33,10 +33,10 @@ for(int i=1; i<aabbs.length+1; i++){
 // set up paramters for Quadtree constructor
 int wdth = 1000;
 int hght = 600;
-int tree_Depth = 5;
+int tree_Depth = 6;
 boolean is_square = false; //"false" means rectangular Quadtree
 
-// create Quadtree using parameters
+// create Quadtree using parameters from above
 Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth, is_square);
 
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
