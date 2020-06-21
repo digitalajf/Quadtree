@@ -70,7 +70,7 @@ public class AABB {
 	 ******************************************************************************/
 	public boolean collides_With(AABB aabb){
 		if(x1 > aabb.x2 || aabb.x1 > x2)
-		  return(false);
+			return(false);
 	
 		if(y2 < aabb.y1 || aabb.y2 < y1)
 			return(false);
@@ -78,7 +78,7 @@ public class AABB {
 		return(true);
 	}
 	
-   /*******************************************************************************
+	/*******************************************************************************
 	 * Move this AABB by delta_x, delta_y.
 	 *
 	 * @param delta_x The delta value for which to increment the "x" position of
