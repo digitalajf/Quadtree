@@ -17,6 +17,7 @@ Some noteworthy characteristics:</b>
 1. Quadtree.java
 2. AABB.java
 3. Tester.java (windowed simulator for testing - not needed for normal use)
+4. javadoc.zip
 
 ## example usage:
 ```java
