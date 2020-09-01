@@ -1,4 +1,4 @@
-# Static Quadtree ver 3.16
+# Quadtree ver 3.16
 
 #### compiled with JDK 13.0.1
 
