@@ -2,14 +2,11 @@
 
 #### compiled with JDK 13.0.1
 
-<b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance at a tiny cost of memory required to store all quadnodes.
+<b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance. All that is required after the Quadtree is built is to querry Quadnodes to see if there are at lease two AABBs that intersect it. If an intersection with at least two AABBs is found, the search will continue deeper into the sub-Quadnodes otherwise, deeper searching will be culled.
     
 Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs (AABB.java included)
-- pre-built Quadtree eliminates need to create new "Quadnode" objects in real-time
-- pre-built Quadtree has pre-calculated quadnode centers to eliminate arithmetic during real-time search within tree
 - AABBs will reference each other as being "nearby" when discovered to intersect the same quadnode at maximum tree depth
-- searches within quadrants occur only when 2 or more AABBs intersect the quadrant effectively culling needless extra searching within sub-quadrants
 - Quadtree can be squared or rectangulated in real-time
 - tree depth can be increased or decreased in real-time
 
