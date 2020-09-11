@@ -7,6 +7,7 @@
 Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs (AABB.java included)
 - AABBs will reference each other as being "nearby" when discovered to intersect the same quadnode at maximum tree depth
+- AABBs can be added or removed from the Quadtree in real-time
 - Quadtree can be squared or rectangulated in real-time
 - tree depth can be increased or decreased in real-time allowing variability in what is considered "close proximity"
 
