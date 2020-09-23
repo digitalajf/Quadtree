@@ -4,7 +4,7 @@
 
 <b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance. 
     
-After the Quadtree and all Quadnodes have been built, Quadtree.java will simply querry Quadnodes to see if there are at lease two AABBs that intersect it. If an intersection with at least two AABBs is found, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect any given Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
+After the Quadtree and all Quadnodes have been built, Quadtree.java will simply querry Quadnodes to see if there are at least two AABBs that intersect it. If an intersection with at least two AABBs is found, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect any given Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
     
 Some noteworthy characteristics:</b>
 - exclusively designed to work with AABBs (AABB.java included)
