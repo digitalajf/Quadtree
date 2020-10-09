@@ -1,5 +1,7 @@
 # Quadtree ver 3.16
 
+https://github.com/arashfarmand/Quadtree/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
+
 #### compiled with JDK 13.0.1
 
 <b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance. 
