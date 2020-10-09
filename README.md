@@ -1,8 +1,7 @@
 # Quadtree ver 3.16
 
-[report bugs](https://github.com/arashfarmand/Quadtree/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
-
-[feature request](https://github.com/arashfarmand/Quadtree/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
+- [report bugs](https://github.com/arashfarmand/Quadtree/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
+- [feature request](https://github.com/arashfarmand/Quadtree/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
 
 #### compiled with JDK 13.0.1
 
