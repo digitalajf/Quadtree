@@ -10,4 +10,4 @@ A windowed application to thoroughly test the functionality of Quadtree.java, AA
 2. compile Tester.java
 3. run
 
-![Qt simulator](https://github.com/The-AJF/Images/blob/master/simulator.png)
+![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/simulator.png)
