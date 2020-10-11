@@ -45,4 +45,4 @@ Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth, is_square);
 
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
 ```
-![Qt simulator](https://github.com/The-AJF/Images/blob/master/qt.png)
+![Qt simulator](https://github.com/The-AJF/Images/Quadtree/blob/master/qt.png)
