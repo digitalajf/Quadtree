@@ -1,6 +1,6 @@
 # Quadtree ver 3.16
 
-- [report bugs/feature requests](<li><a href="mailto:youraddress@url.com">Email Us</a></li>)
+- [report bugs/feature requests](<a href="mailto:youraddress@url.com">Email Us</a>)
 
 #### compiled with JDK 13.0.1
 
