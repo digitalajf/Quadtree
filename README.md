@@ -4,16 +4,14 @@
 
 #### compiled with JDK 13.0.1
 
-<b>Quadtree.java will effectively determine when AABBs are "close enough" to be examined for collisions. My version here is static meaning it is completely built from the tip down to the leaves during initialization in order to improve search performance. 
+<b>Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision.
     
-After the Quadtree and all Quadnodes have been built, Quadtree.java will simply querry Quadnodes to see if there are at least two AABBs that intersect it. If an intersection with at least two AABBs is found, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect any given Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
+The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will simply querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found within the Quadnode's bounds, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
     
 Some noteworthy characteristics:</b>
-- exclusively designed to work with AABBs (AABB.java included)
-- AABBs will reference each other as being "nearby" when discovered to intersect the same quadnode at maximum tree depth
-- AABBs can be added or removed from the Quadtree in real-time
-- Quadtree can be squared or rectangulated in real-time
-- tree depth can be increased or decreased in real-time allowing variability in what is considered "close proximity"
+- AABBs can be added or removed from the Quadtree in real time
+- Quadtree can be squared or rectangulated in real time
+- tree depth can be increased or decreased in real time allowing variability in what is considered "close proximity"
 
 #### contains: 
 1. Quadtree.java
