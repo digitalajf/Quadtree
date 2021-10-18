@@ -49,3 +49,7 @@ Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth, is_square);
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
 ```
 ![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/qt.png)
+
+<b>Older UI for ProximityTester.java</b>
+
+![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/ui_old.png)
