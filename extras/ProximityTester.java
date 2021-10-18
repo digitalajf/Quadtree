@@ -15,8 +15,8 @@ import java.util.Random;
  * @since 2021-10-18
  *********************************************************************************/
 public class ProximityTester extends JPanel{
-
-	private JFrame frame;
+   
+   private JFrame frame;
    private MouseListener mouse_Listener;
    private Font uifont;
    private Color color_Gray_0;
