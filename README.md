@@ -12,7 +12,7 @@ The Quadtree and all Quadnodes are built during initialization. During runtime, 
     
 Some noteworthy characteristics:</b>
 - AABBs can be added or removed from the Quadtree
-- Quadtree can be squared or rectangulated in real time
+- Quadtree can be squared or rectangulated in real time (square shape is recommended)
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased or decreased
 
