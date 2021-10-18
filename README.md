@@ -1,23 +1,27 @@
-# Quadtree ver 3.16
+# Quadtree ver 3.27
 
 - <a href="mailto:ajf.digitals@gmail.com">report bugs/feature requests</a>
 
-#### compiled with JDK 13.0.1
+#### compiled with JDK 16.0.2
 
 <b>Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision.
     
 The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found within the Quadnode's bounds, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
     
 Some noteworthy characteristics:</b>
-- AABBs can be added or removed from the Quadtree in real time
+- AABBs can be added or removed from the Quadtree
 - Quadtree can be squared or rectangulated in real time
-- tree depth can be increased or decreased in real time allowing variability in what is considered "close proximity"
+- tree depth can be increased or decreased allowing variability in what is considered "close proximity"
+- Velocities of AABBs can be increased or decreased
 
 #### contains: 
 1. Quadtree.java
-2. AABB.java
-3. Tester.java (windowed simulator for testing - not needed for normal use)
-4. javadoc.zip
+2. Quadnode.java
+3. AABB.java
+5. javadoc.zip
+
+#### extras folder contains:
+ProximityTester.java (windowed simulator for testing - not needed for normal use)
 
 ## example usage:
 ```java
