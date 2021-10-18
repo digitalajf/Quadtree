@@ -23,7 +23,7 @@ Some noteworthy characteristics:</b>
 5. javadoc.zip
 
 #### extras folder contains:
-ProximityTester.java (windowed simulator for testing - not needed for normal use)
+1. ProximityTester.java (windowed simulator for testing - not needed for normal use)
 
 ## example usage:
 ```java
