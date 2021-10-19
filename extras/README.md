@@ -1,4 +1,4 @@
-# ProximityTester.java
+# ProximityTester.java ver3.8
 A windowed application to thoroughly test the functionality of Quadtree.java, Quadnode.java and AABB.java. ProximityTester.java will create 
 a number of AABBs with random values and continuously move them around the screen while updating the quadtree and refreshing the screen. 
 The simulator will allow you to:
