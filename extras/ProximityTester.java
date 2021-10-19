@@ -258,7 +258,7 @@ public class ProximityTester extends JPanel {
       + "\nensures proximity test results<br>are consistent regardless of what direction the<br>AABBs are with "
       + "\nrespect to each other.</html>");
       rBttn_Sqr_QT.addActionListener((ActionEvent e) -> {
-         set_Quadtree_To_Square();
+         set_Quadtree_Shape(Quadtree.SQUARE);
       });
       rBttn_Sqr_QT.setSize(bttn_about.getWidth(), 25);
       rBttn_Sqr_QT.setLocation(bttn_Lic.getX(), gap_Vert_5);
@@ -272,7 +272,7 @@ public class ProximityTester extends JPanel {
       rBttn_Rct_QT.setToolTipText("<html>Change the shape of the Quadtree to rectangular.<br><br>This is generally "
       + "\nnot recommended if consistent<br>proximity test results are necessary.</html>");
       rBttn_Rct_QT.addActionListener((ActionEvent e) -> {
-         set_Quadtree_To_Rectangular();
+         set_Quadtree_Shape(Quadtree.RECTANGULAR);
       });
       rBttn_Rct_QT.setSize(rBttn_Sqr_QT.getWidth(), 25);
       rBttn_Rct_QT.setLocation(rBttn_Sqr_QT.getX(), rBttn_Sqr_QT.getY() + rBttn_Sqr_QT.getHeight() + gap_Vert_0);
@@ -632,7 +632,7 @@ public class ProximityTester extends JPanel {
       //System.setProperty("sun.java2d.opengl", "True");
       //System.setProperty("sun.java2d.d3d", "True");
       //System.setProperty("sun.java2d.ddforcevram", "True");
-      set_Square_Quadtree(square_Quadtree);
+      set_Quadtree_Shape(Quadtree.SQUARE);
       update_Frame_Title();
       SwingUtilities.updateComponentTreeUI(frame);
       frame.setVisible(true);
@@ -970,42 +970,31 @@ public class ProximityTester extends JPanel {
    }
 
    /** *****************************************************************************
-    * Change the shape of the Quadtree to Rectangular.
-    ***************************************************************************** */
-   private void set_Quadtree_To_Rectangular() {
-      square_Quadtree = false;
-      set_Square_Quadtree(square_Quadtree);
-      update_Frame_Title();
-   }
-
-   /** *****************************************************************************
-    * Change the shape of the Quadtree to Square.
-    ***************************************************************************** */
-   private void set_Quadtree_To_Square() {
-      square_Quadtree = true;
-      set_Square_Quadtree(square_Quadtree);
-      update_Frame_Title();
-   }
-
-   /** *****************************************************************************
     * Toggle between a square or rectangular Quadtree.&nbsp;A rectangular Quadtree
     * will fit the window component it lies in whereas a square Quadtree will have
     * a portion of the bottom extending beyond the bottom of the window
     * component.&nbsp;The Quadtree must be rebuilt after this change thus
-    * "quadtree.reshape(wdth, hght, square_Quadtree)" is called at the end of this
-    * method.
+    * "quadtree.reshape(int,int)" is called at the end of this method. This method
+    * will throw an "IllegalArgumentException" in the event that the argument
+    * passed to the "shape" parameter is not recognized.
     *
-    * @param square whether to set the Quadtree shape to square (true) or not
-    * (false).
-    **************************************************************************** */
-   public void set_Square_Quadtree(boolean square) {
-      int quadtree_wdth = wdth;
-      int quadtree_hght = hght;
+    * @param shape numerical identifier to determine if the Quadtree is to be
+    * made square or rectangular
+    ***************************************************************************** */
+   private void set_Quadtree_Shape(int shape) throws IllegalArgumentException {
+      if (shape != Quadtree.SQUARE && shape != Quadtree.RECTANGULAR) {
+         throw new IllegalArgumentException(
+         shape + " is not recognized as a valid argument for Quadtree shape");
+      } else {
+         int quadtree_wdth = wdth;
+         int quadtree_hght = hght;
 
-      if (square) {
-         quadtree_wdth = quadtree_hght = wdth > hght ? wdth - 1 : hght - 1;
+         if (shape == Quadtree.SQUARE) {
+            quadtree_wdth = quadtree_hght = wdth > hght ? wdth - 1 : hght - 1;
+         }
+         quadtree.reshape(quadtree_wdth, quadtree_hght);
+         update_Frame_Title();
       }
-      quadtree.reshape(quadtree_wdth, quadtree_hght);
    }
 
    /** *****************************************************************************
