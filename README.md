@@ -4,7 +4,7 @@
 
 #### compiled with JDK 16.0.2
 
-This revision makes changes to the UI with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was an inner class and is now and stand-alone class.
+This revision makes changes to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was an inner class and is now and stand-alone class.
 
 <b>Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision.
     
