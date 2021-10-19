@@ -36,7 +36,7 @@ root
         Quadnode.java
         Quadtree.java</pre>
 
-### example usage:
+### Example Usage:
 ```java
 
 // 5 AABBs created and added to the array with various initial values.
