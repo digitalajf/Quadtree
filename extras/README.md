@@ -1,4 +1,4 @@
-# ProximityTester ver 3.8 (formerly known as "Tester")
+# ProximityTester ver 3.81 (formerly known as "Tester")
 
 (Note: This is not needed for normal use). A windowed application to thoroughly test the functionality of Quadtree.java, Quadnode.java and AABB.java. ProximityTester.java will create a number of AABBs with random values and continuously move them around the screen while updating the Quadtree and refreshing the screen. 
 The simulator will allow you to:
@@ -10,7 +10,7 @@ The simulator will allow you to:
 - make the quadtree square or rectangular
 - change the colors of Quadtree elements
 
-## Since ver 3.16:
+## Since ver 3.45:
 - "Dark" theme has been implemented as the standard UI look and feel
 - some extra functionality has been added
 - bug fixes and enhancements have been made (see CHANGE_LOG or "Issues" section)
