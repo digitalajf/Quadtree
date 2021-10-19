@@ -9,7 +9,7 @@ Quadtree.java will effectively determine when AABBs are in close proximity to ea
 ---
 
 ### What's new since ver 3.16?
-This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for a comprehensive breakdown.
+This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for a comprehensive view.
     
 ### Some noteworthy characteristics:
 - AABBs can be added or removed from the Quadtree
