@@ -9,13 +9,13 @@ Quadtree.java will effectively determine when AABBs are in close proximity to ea
 ---
 
 ### What's new since ver 3.16?
-This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for comprehensive breakdown.
+This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for a comprehensive breakdown.
     
 ### Some noteworthy characteristics:
 - AABBs can be added or removed from the Quadtree
-- Quadtree can be squared or rectangulated in real time (square shape is recommended)
+- Quadtree can be squared or rectangulated (square shape is recommended)
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
-- Velocities of AABBs can be increased or decreased
+- Velocities of AABBs can be increased, decreased or averaged
 
 ### Folder breakdown:
 
@@ -51,7 +51,7 @@ for(int i=0; i<aabbs.length; i++){
 // set up paramters for Quadtree constructor
 int wdth = 1000;
 int hght = 1000;
-int tree_Depth = 6;
+int tree_Depth = 5;
 
 // create Quadtree using parameters from above
 Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth);
