@@ -1,0 +1,50 @@
+ Versioning
+============
+
+Version of Quadtree is done by simply adding the individual version of each Java class (except for
+the examples) and dividing the total by the number of classes in the project (not counting the
+examples).
+
+ What has been changed since ver 3.16
+======================================
+
+- Quadtree can now compile and run under JDK 16.0.2.
+
+- Added appropriate access level modifiers with setters and getters for better code encapsulation.
+
+- Changed reference "Main.java" to "ProximityTester.java" in "About" Dialog.
+
+- The Quadnode class was previously an inner class of Quadtree class. The Quadnode class has now
+been extracted from Quadtree class and is now a stand-alone class.
+
+- Tester.java has been renamed to "ProximityTester.java".
+
+- ProximityTester.java now starts with a square Quadtree shape which is recommended for proper 
+proximity test results. AABBs will have consistent proximity test results if the Quadtree shape
+is square regardless of what direction the AABBs are with respect to each other. AABBs will be 
+discovered to be in close proximity to each other more often when approaching each other on the
+axis where Quadnode's have longer edges. This creates inconsistencies in proximity detection.
+
+- Dark UI elements have been implemented for backgrounds, Buttons, etc.
+
+- UI elements have been organized into labeled groups of JPanels with titles.
+
+- Extra functionality has been added. The user is now able to remove more than just one AABB at a
+time. It is possible to remove 5, 20 and 100 AABBs at once with an adjustment to the "remove_AABB"
+method.
+
+- Created overloaded grow_AABBs method with a parameter to accept an integer as an argument for
+extra functionality. This method will grow (or shrink) AABBs by an integer value in both width and
+height. This method will require some extra work since increasing the width and height of AABBs
+by a constant will cause the proportions to change. See "Issues" in Quadtree Repository.
+
+- Changed floating point values to double-precision floating point values (float to double) in most
+instances where they were found.
+
+- Tree depth increase no longer causes ProximityTester to crash. Pausing the simulation before
+increasing the tree depth and then un-pausing appears to have remedied this.
+
+- removing all but the last AABB no longer causes all AABBs to be removed (in-between ver 3.16 and
+3.27).
+
+- Added the ability to change the Colors of everything that makes up the Quadtree including AABBs.
