@@ -15,4 +15,10 @@ The simulator will allow you to:
 2. compile ProximityTester.java
 3. run
 
-![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/simulator.png)
+![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/qt.png)
+
+<b>Older UI for Tester.java (now ProximityTester.java):</b>
+
+![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/ui_old.png)
+
+
