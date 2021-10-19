@@ -12,11 +12,12 @@ import java.util.Random;
  * functions of the quadtree.
  *
  * @author Arash J. Farmand
- * @version 3.8
- * @since 2021-10-18
+ * @version 3.81
+ * @since 2021-10-19
  ******************************************************************************** */
 public class ProximityTester extends JPanel {
 
+   public static final float VER_OF_CLASS = 3.81f;
    private JFrame frame;
    private MouseListener mouse_Listener;
    private Font uifont;
@@ -624,7 +625,7 @@ public class ProximityTester extends JPanel {
       panel_Color.add(bttn_QT_Bkgrnd_Color);
 
       // Initialize the Quadtree using this JPanel for size measurements
-      quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth, square_Quadtree);
+      quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth);
 
       //System.setProperty("sun.java2d.transaccel", "True");
       //System.setProperty("sun.java2d.trace", "timestamp,log,count");
@@ -965,7 +966,7 @@ public class ProximityTester extends JPanel {
    private void remove_All_AABBs() {
       number_Of_AABBs = 0;
       aabbs = new AABB[0];
-      quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth, square_Quadtree);
+      quadtree = new Quadtree(aabbs, wdth, hght, max_Tree_Depth);
    }
 
    /** *****************************************************************************
@@ -1100,7 +1101,7 @@ public class ProximityTester extends JPanel {
     ***************************************************************************** */
    private void update_Frame_Title() {
       String shape = square_Quadtree ? "Square" : "Rectangular";
-      frame.setTitle("Proximity Test Simulator ver 3.8"
+      frame.setTitle("Proximity Test Simulator ver " + VER_OF_CLASS
       + "       |       Tree Depth: " + max_Tree_Depth
       + "       |       AABBs on screen: " + aabbs.length
       + "       |       Quadtree shape: " + shape
