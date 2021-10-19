@@ -2,30 +2,32 @@
 
 - <a href="mailto:ajf.digitals@gmail.com">report bugs/feature requests</a>
 
-#### compiled with JDK 16.0.2
+---
 
-This revision makes changes to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was an inner class and is now and stand-alone class.
+Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision. The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found within the Quadnode's bounds, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
 
-<b>Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision.
+---
+
+### What's new since ver 3.16?
+This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for comprehensive breakdown.
     
-The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found within the Quadnode's bounds, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
-    
-Some noteworthy characteristics:</b>
+### Some noteworthy characteristics:</b>
 - AABBs can be added or removed from the Quadtree
 - Quadtree can be squared or rectangulated in real time (square shape is recommended)
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased or decreased
 
-#### contains: 
+### contains: 
 1. Quadtree.java
 2. Quadnode.java
 3. AABB.java
 5. javadoc.zip
+6. CHANGE_LOG
 
-#### extras folder contains:
+### extras folder contains:
 1. ProximityTester.java (windowed simulator for testing - not needed for normal use)
 
-## example usage:
+### example usage:
 ```java
 
 // make 5 AABBs and add to the array with various initial values.
