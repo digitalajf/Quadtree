@@ -29,6 +29,14 @@ public class Quadtree {
     * Array containing all AABBs
     */
    private AABB[] all_AABBs;
+   /**
+    * Static constant representing a Square Quadtree shape
+    */
+   public static final int SQUARE = 0x000000000;
+   /**
+    * Static constant representing a Rectangular Quadtree shape
+    */
+   public static final int RECTANGULAR = 0x00000001;
 
    /** *****************************************************************************
     * Constructor for the Quadtree.&nbsp;Build the Quadtree from the top down by
@@ -48,7 +56,7 @@ public class Quadtree {
     * @param square If set to "true" quadtree will have a square shape otherwise
     * the quadtree will be rectangular.
     ***************************************************************************** */
-   public Quadtree(AABB[] aabb_Array, int wdth, int hght, int mtd, boolean square) {
+   public Quadtree(AABB[] aabb_Array, int wdth, int hght, int mtd) {
       all_AABBs = aabb_Array;
       max_Tree_Depth = mtd;
 
