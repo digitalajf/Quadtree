@@ -17,15 +17,17 @@ This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (Pr
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased or decreased
 
-### contains: 
+### (src) folder contains: 
 1. Quadtree.java
 2. Quadnode.java
 3. AABB.java
-5. javadoc.zip
 6. CHANGE_LOG
+7. LICENSE
 
-### extras folder contains:
-1. ProximityTester.java (windowed simulator for testing - not needed for normal use)
+### (extras) folder contains:
+1. ProximityTester.java
+2. CHANGE_LOG
+3. LICENCE
 
 ### example usage:
 ```java
