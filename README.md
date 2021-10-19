@@ -17,43 +17,44 @@ This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (Pr
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased or decreased
 
-### Folder breakdown
+### Folder breakdown:
 
-#### (src)
-1. Quadtree.java
-2. Quadnode.java
-3. AABB.java
-6. CHANGE_LOG
-7. LICENSE
-
-#### (extras)
-1. ProximityTester.java
-2. CHANGE_LOG
-3. LICENCE
-
-##### (docs)
-1. quadtree_ver_3.27_javadocs.zip
+<pre>
+root
+├───docs
+│       quadtree_ver_3.27_javadocs.zip
+│
+├───extras
+│       CHANGE_LOG
+│       LICENSE
+│       ProximityTester.java
+│
+└───src
+        AABB.java
+        CHANGE_LOG
+        LICENSE
+        Quadnode.java
+        Quadtree.java</pre>
 
 ### example usage:
 ```java
 
-// make 5 AABBs and add to the array with various initial values.
+// 5 AABBs created and added to the array with various initial values.
 AABB[] aabbs = new AABB[5];
-for(int i=1; i<aabbs.length+1; i++){
-    aabbs[i-1] = new AABB();
-    aabbs[i-1].set_Size(i*20, i*15);
-    aabbs[i-1].set_Velocity(i*0.3f, i*0.4f);
-    aabbs[i-1].relocate(i*200, i*125);
+for(int i=0; i<aabbs.length; i++){
+    aabbs[i] = new AABB();
+    aabbs[i].set_Size((i+1)*20, (i+1)*15);
+    aabbs[i].set_Velocity((i+1)*0.3f, (i+1)*0.4f);
+    aabbs[i].relocate((i+1)*200, (i+1)*125);
 }
 
 // set up paramters for Quadtree constructor
 int wdth = 1000;
-int hght = 600;
+int hght = 1000;
 int tree_Depth = 6;
-boolean is_square = false; //"false" means rectangular Quadtree
 
 // create Quadtree using parameters from above
-Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth, is_square);
+Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth);
 
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
 ```
