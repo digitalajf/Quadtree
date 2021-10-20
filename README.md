@@ -48,13 +48,13 @@ for(int i=0; i<aabbs.length; i++){
     aabbs[i].relocate((i+1)*200, (i+1)*125);
 }
 
-// set up paramters for Quadtree constructor
-int wdth = 1000;
-int hght = 1000;
+// intialize width, height and tree depth
+int width = 1000;
+int height = 1000;
 int tree_Depth = 5;
 
-// create Quadtree using above variables
-Quadtree qt = new Quadtree(aabbs, wdth, hght, tree_Depth);
+// create Quadtree using AABB array, width height and tree depth
+Quadtree qt = new Quadtree(aabbs, width, height, tree_Depth);
 
 // relocate, resize and change velocities of AABBs as needed and then call qt.update();
 ```
