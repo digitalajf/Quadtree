@@ -60,6 +60,6 @@ Quadtree qt = new Quadtree(aabbs, width, height, tree_Depth);
 ```
 ![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/qt.png)
 
-<b>Older UI for ProximityTester.java (known as Tester.java at the time):</b>
+<b>Older UI for ProximityTester.java (previously "Tester.java"):</b>
 
 ![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/ui_old.png)
