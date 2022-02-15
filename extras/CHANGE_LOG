@@ -1,9 +1,9 @@
  Versioning
 ============
 
-Version of Quadtree is done by simply adding the individual version of each Java class (except for
-the examples) and dividing the total by the number of classes in the project (not counting the
-examples).
+The Version of Quadtree is determined by simply adding the individual version of each class
+in the "src" folder and dividing the total by the number of classes. The classes in the "extras"
+folder are examples and are not counted towards the version.
 
  What has been changed since ver 3.16
 ======================================
