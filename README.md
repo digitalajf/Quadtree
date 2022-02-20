@@ -27,7 +27,7 @@ root
 ├───extras
 │       CHANGE_LOG
 │       LICENSE
-│       ProximityTester.java
+│       - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `ProximityTester.java`
 │
 └───src
         AABB.java
