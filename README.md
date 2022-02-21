@@ -17,24 +17,26 @@ This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (Pr
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased, decreased or averaged
 
-### Folder breakdown:
+### Folder breakdown (source code underlined):
 
 <pre>
 root
+│
 ├───docs
 │       quadtree_ver_3.27_javadocs.zip
 │
 ├───extras
 │       CHANGE_LOG
 │       LICENSE
-│       ProximityTester.java
+│       <ins><b>ProximityTester.java</b></ins>
 │
 └───src
-        AABB.java
+        <ins><b>AABB.java</b></ins>
         CHANGE_LOG
         LICENSE
-        Quadnode.java
-        Quadtree.java</pre>
+        <ins><b>Quadnode.java</b></ins>
+        <ins><b>Quadtree.java</b></ins>
+</pre>
 
 ### Example Usage:
 ```java
