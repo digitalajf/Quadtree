@@ -17,7 +17,7 @@ This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (Pr
 - tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased, decreased or averaged
 
-### Folder breakdown (source code underlined):
+### Folder breakdown:
 
 <pre>
 root
