@@ -21,6 +21,7 @@ This revision has benn compiled with JDK 16.0.2. Changes were made to the UI (Pr
 
 <pre>
 root
+|   LICENSE
 │
 ├───docs
 │       quadtree_ver_3.27_javadocs.zip
