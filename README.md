@@ -66,4 +66,5 @@ Quadtree qt = new Quadtree(aabbs, width, height, tree_Depth);
 <b>Older UI for ProximityTester.java (previously "Tester.java"):</b>
 
 ![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/ui_old.png)
-<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+!<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+
