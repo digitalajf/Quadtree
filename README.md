@@ -57,9 +57,9 @@ int height = 1000;
 int tree_Depth = 5;
 
 // create Quadtree using AABB array, width height and tree depth
-Quadtree qt = new Quadtree(aabbs, width, height, tree_Depth);
+Quadtree qtree = new Quadtree(aabbs, width, height, tree_Depth);
 
-// relocate, resize and change velocities of AABBs as needed and then call qt.update();
+// relocate, resize and change velocities of AABBs as needed and then call qtree.update();
 ```
 ![Qt simulator](https://github.com/digitalAJF/Images/blob/master/Quadtree/qt.png)
 
