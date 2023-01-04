@@ -14,7 +14,7 @@ This revision has been compiled with JDK 16.0.2. Changes were made to the UI (Pr
 ### Some noteworthy characteristics (in real time):
 - AABBs can be added or removed from the Quadtree
 - Quadtree can be squared or rectangulated (square shape is recommended)
-- tree depth can be increased or decreased allowing variability in what is considered "close proximity"
+- Tree depth can be increased or decreased allowing variability in what is considered "close proximity"
 - Velocities of AABBs can be increased, decreased or averaged
 
 ### Folder breakdown:
