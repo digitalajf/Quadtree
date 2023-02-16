@@ -7,9 +7,6 @@
 Quadtree.java will effectively determine when AABBs are in close proximity to each other with variable degrees of precision. The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found within the Quadnode's bounds, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs will be marked as being in close proximity to each other.
 
 ---
-
-### What's new since ver 3.16?
-This revision has been compiled with JDK 16.0.2. Changes were made to the UI (ProximityTester.java) with an added "Dark" theme, extra functionality and a number of bug fixes. The Quadnode class has been extracted from Quadtree.java where it was once an inner class and is now a stand-alone class. See CHANGE_LOG or "Issues" section for a comprehensive view.
     
 ### Some noteworthy characteristics (in real time):
 - AABBs can be added or removed from the Quadtree
