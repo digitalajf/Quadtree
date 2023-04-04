@@ -43,9 +43,9 @@ root
 AABB[] aabbs = new AABB[5];
 for(int i=0; i<aabbs.length; i++){
     aabbs[i] = new AABB();
-    aabbs[i].set_Size((i+1)*20, (i+1)*15);
+    aabbs[i].set_Size(150, 100);
     aabbs[i].set_Velocity((i+1)*0.3f, (i+1)*0.4f);
-    aabbs[i].relocate((i+1)*200, (i+1)*125);
+    aabbs[i].relocate(new Random().nextInt(850), new Random().nextInt(900));
 }
 
 // intialize width, height and tree depth
