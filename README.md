@@ -1,7 +1,5 @@
 # Quadtree ver 3.27
 
-- <a href="mailto:ajf.digitals@gmail.com">report bugs/feature requests</a>
-
 ---
 
 Quadtree.java will effectively and efficiently determine when AABBs are in close proximity to each other with variable degrees of precision. The Quadtree and all Quadnodes are built during initialization. During runtime, the Quadtree will querry Quadnodes to see if there are at least two AABBs within the Quadnode's bounds. If at least two AABBs are found, the search will continue deeper into the sub-Quadnodes otherwise, searching will be culled for the given Quadnode. If at least two AABBs intersect a Quadnode at the deepest tree depth, those AABBs are considered as being in close proximity to each other.
